@@ -1157,7 +1157,7 @@ async function checkAnswer(caseId, refPrinciple, refApplication) {
   const uApplication =
     document.getElementById('userApplication')?.value.trim() || '';
 
-  if (!uPrinciple && !uApplication) {
+  if (!uPrinciple || !uApplication) {
     showToast('يرجى كتابة إجابتك أولاً', 'warn');
     return;
   }
