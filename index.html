@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>المنصة القانونية | قضايا القانون الجنائي</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ══════════════════════════════════════════
+       CSS VARIABLES & RESET
+    ══════════════════════════════════════════ */
+    :root {
+      --gold-bright:   #f0c040;
+      --gold-main:     #c9972c;
+      --gold-dim:      #7a5c14;
+      --gold-glow:     rgba(192,148,40,0.22);
+      --navy-deep:     #060d1a;
+      --navy-mid:      #0c1830;
+      --navy-card:     #0e1f3a;
+      --navy-border:   rgba(192,148,40,0.18);
+      --navy-glass:    rgba(12,24,48,0.72);
+      --text-primary:  #f0e8d0;
+      --text-secondary:#b8a880;
+      --text-muted:    #6b5e42;
+      --success:       #2ecc71;
+      --warn:          #f39c12;
+      --danger:        #e74c3c;
+      --info:          #3498db;
+      --radius-lg:     18px;
+      --radius-md:     12px;
+      --radius-sm:     8px;
+      --shadow-gold:   0 4px 32px rgba(192,148,40,0.18);
+      --transition:    0.32s cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: var(--navy-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      direction: rtl;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy-mid); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gold-main); }
+
+    /* ══════════════════════════════════════════
+       ANIMATED BACKGROUND
+    ══════════════════════════════════════════ */
+    .bg-layer {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .bg-layer::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(192,148,40,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 90%, rgba(12,40,100,0.35) 0%, transparent 60%),
+        linear-gradient(160deg, #060d1a 0%, #0a1628 50%, #060d1a 100%);
+    }
+    .bg-orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18;
+      animation: orbFloat 14s ease-in-out infinite;
+    }
+    .bg-orb-1 { width: 500px; height: 500px; background: var(--gold-main); top: -150px; right: -100px; animation-delay: 0s; }
+    .bg-orb-2 { width: 380px; height: 380px; background: #1a4080; bottom: -100px; left: -80px; animation-delay: -7s; }
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(30px,-30px) scale(1.05); }
+      66% { transform: translate(-20px,20px) scale(0.97); }
+    }
+
+    /* ══════════════════════════════════════════
+       HEADER / HERO
+    ══════════════════════════════════════════ */
+    header {
+      position: relative; z-index: 10;
+      padding: 48px 24px 36px;
+      text-align: center;
+      border-bottom: 1px solid var(--navy-border);
+      background: linear-gradient(180deg, rgba(6,13,26,0.9) 0%, transparent 100%);
+    }
+    .header-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold-glow);
+      border: 1px solid var(--gold-dim);
+      border-radius: 20px;
+      padding: 6px 18px;
+      font-size: 0.78rem;
+      color: var(--gold-bright);
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      animation: fadeInDown 0.7s ease both;
+    }
+    .header-logo {
+      font-family: 'Amiri', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-bright) 0%, var(--gold-main) 50%, #e8b84b 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      line-height: 1.2;
+      animation: fadeInDown 0.8s ease 0.1s both;
+      text-shadow: none;
+    }
+    .header-sub {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      margin-top: 10px;
+      animation: fadeInDown 0.8s ease 0.2s both;
+    }
+    .header-divider {
+      width: 80px; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-main), transparent);
+      margin: 18px auto 0;
+      animation: fadeIn 1s ease 0.4s both;
+    }
+
+    /* ══════════════════════════════════════════
+       STATS BAR
+    ══════════════════════════════════════════ */
+    .stats-bar {
+      position: relative; z-index: 10;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 24px;
+      padding: 22px 24px;
+      background: rgba(10,20,40,0.6);
+      border-bottom: 1px solid var(--navy-border);
+      backdrop-filter: blur(10px);
+      animation: fadeIn 0.9s ease 0.5s both;
+    }
+    .stat-item {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--text-secondary); font-size: 0.92rem;
+    }
+    .stat-item i { color: var(--gold-main); font-size: 1.1rem; }
+    .stat-num {
+      font-size: 1.4rem; font-weight: 800; color: var(--gold-bright);
+      font-family: 'Cairo', sans-serif;
+    }
+
+    /* ══════════════════════════════════════════
+       CONTROLS (Search + Filter)
+    ══════════════════════════════════════════ */
+    .controls {
+      position: relative; z-index: 10;
+      max-width: 900px; margin: 36px auto 0;
+      padding: 0 20px;
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+      animation: fadeInUp 0.7s ease 0.3s both;
+    }
+    .search-wrap {
+      flex: 1; min-width: 240px;
+      position: relative;
+    }
+    .search-wrap i {
+      position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+      color: var(--gold-dim); font-size: 1rem; pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--navy-glass);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      padding: 13px 44px 13px 16px;
+      color: var(--text-primary);
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      backdrop-filter: blur(8px);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus {
+      border-color: var(--gold-main);
+      box-shadow: 0 0 0 3px var(--gold-glow);
+    }
+
+    .filter-btn {
+      background: var(--navy-glass);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      padding: 13px 18px;
+      color: var(--text-secondary);
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.88rem;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 7px;
+      transition: all var(--transition);
+      backdrop-filter: blur(8px);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--gold-glow);
+      border-color: var(--gold-main);
+      color: var(--gold-bright);
+    }
+
+    /* ══════════════════════════════════════════
+       GRID
+    ══════════════════════════════════════════ */
+    .grid-section {
+      position: relative; z-index: 10;
+      max-width: 1200px; margin: 36px auto 60px;
+      padding: 0 20px;
+    }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 26px;
+    }
+
+    /* ══════════════════════════════════════════
+       CASE CARD
+    ══════════════════════════════════════════ */
+    .case-card {
+      background: linear-gradient(145deg, rgba(14,31,58,0.95), rgba(8,18,38,0.98));
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      animation: cardIn 0.6s ease both;
+      backdrop-filter: blur(12px);
+    }
+    .case-card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-main), transparent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .case-card:hover { transform: translateY(-6px); border-color: var(--gold-dim); box-shadow: var(--shadow-gold); }
+    .case-card:hover::before { opacity: 1; }
+
+    .card-num {
+      position: absolute; top: 18px; left: 18px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      color: var(--gold-dim);
+      background: rgba(192,148,40,0.08);
+      border: 1px solid var(--gold-dim);
+      border-radius: var(--radius-sm);
+      padding: 3px 10px;
+    }
+    .card-icon {
+      width: 48px; height: 48px;
+      background: var(--gold-glow);
+      border: 1px solid var(--gold-dim);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      color: var(--gold-bright); font-size: 1.2rem;
+      transition: transform var(--transition);
+    }
+    .case-card:hover .card-icon { transform: scale(1.1) rotate(6deg); }
+    .card-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--gold-bright);
+      margin-bottom: 12px; line-height: 1.4;
+    }
+    .card-preview {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .card-actions {
+      display: flex; gap: 10px; align-items: center;
+    }
+    .btn-primary {
+      flex: 1;
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-dim));
+      color: var(--navy-deep);
+      border: none; border-radius: var(--radius-sm);
+      padding: 11px 16px;
+      font-family: 'Cairo', sans-serif; font-size: 0.88rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
+      transition: all var(--transition);
+    }
+    .btn-primary:hover { filter: brightness(1.12); transform: scale(1.02); }
+    .btn-icon {
+      width: 40px; height: 40px;
+      background: rgba(192,148,40,0.1);
+      border: 1px solid var(--gold-dim);
+      border-radius: var(--radius-sm);
+      color: var(--gold-main);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; transition: all var(--transition);
+    }
+    .btn-icon:hover { background: var(--gold-glow); color: var(--gold-bright); }
+
+    /* ══════════════════════════════════════════
+       SKELETON
+    ══════════════════════════════════════════ */
+    .skeleton {
+      background: linear-gradient(145deg, rgba(14,31,58,0.95), rgba(8,18,38,0.98));
+      border: 1px solid var(--navy-border); border-radius: var(--radius-lg);
+      padding: 28px; overflow: hidden;
+    }
+    .skel-line {
+      height: 14px; border-radius: 6px; margin-bottom: 12px;
+      background: linear-gradient(90deg, rgba(192,148,40,0.06) 25%, rgba(192,148,40,0.14) 50%, rgba(192,148,40,0.06) 75%);
+      background-size: 400% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+    .skel-line.title { height: 22px; width: 60%; }
+    .skel-line.short { width: 40%; }
+    @keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+
+    /* ══════════════════════════════════════════
+       EMPTY STATE
+    ══════════════════════════════════════════ */
+    .empty-state {
+      text-align: center; padding: 80px 20px;
+      color: var(--text-muted); display: none;
+    }
+    .empty-state i { font-size: 3rem; color: var(--gold-dim); margin-bottom: 16px; display: block; }
+    .empty-state h3 { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 8px; }
+
+    /* ══════════════════════════════════════════
+       MODAL OVERLAY
+    ══════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(4,8,18,0.88);
+      backdrop-filter: blur(8px);
+      display: none; align-items: flex-start; justify-content: center;
+      padding: 24px 16px;
+      overflow-y: auto;
+      animation: fadeIn 0.25s ease;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      position: relative;
+      width: 100%; max-width: 780px;
+      background: linear-gradient(160deg, #0c1d3a, #07111f);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-lg);
+      padding: 0;
+      overflow: hidden;
+      animation: modalIn 0.38s cubic-bezier(.22,1,.36,1);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(192,148,40,0.08);
+      margin: auto;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(40px) scale(0.96); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      padding: 28px 32px 22px;
+      border-bottom: 1px solid var(--navy-border);
+      background: linear-gradient(90deg, rgba(192,148,40,0.06), transparent);
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    }
+    .modal-title-wrap { flex: 1; }
+    .modal-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gold-glow); border: 1px solid var(--gold-dim);
+      border-radius: 12px; padding: 4px 12px;
+      font-size: 0.72rem; color: var(--gold-main); margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+    .modal-title {
+      font-family: 'Amiri', serif;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      color: var(--gold-bright); line-height: 1.3;
+    }
+    .modal-close {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted); font-size: 0.95rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all var(--transition);
+    }
+    .modal-close:hover { background: rgba(231,76,60,0.15); border-color: #e74c3c; color: #e74c3c; }
+
+    .modal-body { padding: 28px 32px 32px; }
+
+    /* Question Section */
+    .section-label {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--gold-dim); text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--gold-dim), transparent);
+    }
+    .question-box {
+      background: rgba(192,148,40,0.04);
+      border: 1px solid rgba(192,148,40,0.12);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      color: var(--text-primary);
+      font-size: 0.97rem; line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    /* Answer Toggle */
+    .answer-toggle-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold-main), var(--gold-dim));
+      color: var(--navy-deep); border: none; border-radius: var(--radius-md);
+      padding: 14px 20px;
+      font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: all var(--transition);
+      margin-bottom: 20px;
+    }
+    .answer-toggle-btn:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 24px var(--gold-glow); }
+    .answer-toggle-btn.shown { background: linear-gradient(135deg, #1a4a2e, #0e2e1c); color: var(--success); }
+
+    /* Answer Content */
+    .answer-content {
+      display: none; overflow: hidden;
+      animation: slideDown 0.4s ease;
+    }
+    .answer-content.visible { display: block; }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .answer-block {
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 16px;
+      position: relative; overflow: hidden;
+    }
+    .answer-block.principle {
+      background: rgba(52,152,219,0.07);
+      border: 1px solid rgba(52,152,219,0.2);
+    }
+    .answer-block.application {
+      background: rgba(46,204,113,0.07);
+      border: 1px solid rgba(46,204,113,0.2);
+    }
+    .answer-block-label {
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+      margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+    }
+    .answer-block.principle .answer-block-label { color: #5dade2; }
+    .answer-block.application .answer-block-label { color: #58d68d; }
+    .answer-block-text {
+      color: var(--text-primary); font-size: 0.94rem;
+      line-height: 1.9;
+    }
+    .copy-btn {
+      position: absolute; top: 14px; left: 14px;
+      background: transparent; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; color: var(--text-muted);
+      font-size: 0.75rem; cursor: pointer; padding: 5px 9px;
+      transition: all var(--transition);
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.06); color: var(--text-secondary); }
+    .copy-btn.copied { color: var(--success); border-color: var(--success); }
+
+    /* ══════════════════════════════════════════
+       SELF-SOLVE SECTION
+    ══════════════════════════════════════════ */
+    .solve-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--navy-border), transparent);
+      margin: 28px 0;
+    }
+    .solve-trigger-btn {
+      width: 100%;
+      background: transparent;
+      border: 1.5px dashed var(--gold-dim);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      color: var(--gold-main);
+      font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: all var(--transition);
+    }
+    .solve-trigger-btn:hover {
+      background: var(--gold-glow); border-color: var(--gold-main);
+      color: var(--gold-bright); transform: scale(1.01);
+    }
+    .solve-trigger-btn.active {
+      background: rgba(192,148,40,0.06); border-style: solid;
+      border-color: var(--gold-main);
+    }
+
+    .solve-panel {
+      display: none; animation: slideDown 0.4s ease;
+      margin-top: 20px;
+    }
+    .solve-panel.open { display: block; }
+
+    .solve-field { margin-bottom: 18px; }
+    .solve-label {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--text-secondary); margin-bottom: 8px;
+    }
+    .solve-label i { color: var(--gold-main); }
+    .solve-textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      color: var(--text-primary);
+      font-family: 'Cairo', sans-serif; font-size: 0.9rem; line-height: 1.8;
+      resize: vertical; min-height: 110px;
+      outline: none; transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .solve-textarea::placeholder { color: var(--text-muted); }
+    .solve-textarea:focus { border-color: var(--gold-main); box-shadow: 0 0 0 2px var(--gold-glow); }
+
+    .check-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #1a3a6a, #0f2447);
+      border: 1.5px solid var(--gold-dim);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      color: var(--gold-bright);
+      font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+      transition: all var(--transition); margin-bottom: 20px;
+    }
+    .check-btn:hover { background: linear-gradient(135deg, #1e4580, #132a58); box-shadow: 0 6px 20px rgba(192,148,40,0.12); }
+
+    /* Result Display */
+    .result-box {
+      border-radius: var(--radius-md);
+      padding: 22px; display: none;
+      animation: slideDown 0.4s ease;
+    }
+    .result-box.show { display: block; }
+
+    .result-gauge-wrap { display: flex; align-items: center; gap: 20px; margin-bottom: 18px; }
+    .gauge-ring {
+      flex-shrink: 0;
+      width: 90px; height: 90px; position: relative;
+    }
+    .gauge-ring svg { transform: rotate(-90deg); }
+    .gauge-ring .gauge-bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 8; }
+    .gauge-ring .gauge-fill {
+      fill: none; stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 226;
+      stroke-dashoffset: 226;
+      transition: stroke-dashoffset 1.2s ease, stroke 0.5s ease;
+    }
+    .gauge-ring .gauge-pct {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 1.15rem; font-weight: 800; color: var(--gold-bright);
+    }
+    .result-text-wrap { flex: 1; }
+    .result-grade {
+      font-size: 1.35rem; font-weight: 800; margin-bottom: 6px;
+    }
+    .result-detail { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; }
+
+    .kw-match-section { margin-top: 16px; }
+    .kw-label { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: 10px; }
+    .kw-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+    .kw-chip {
+      font-size: 0.75rem; padding: 4px 10px; border-radius: 10px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text-muted);
+    }
+    .kw-chip.hit { background: rgba(46,204,113,0.1); border-color: rgba(46,204,113,0.3); color: #58d68d; }
+    .kw-chip.miss { background: rgba(231,76,60,0.08); border-color: rgba(231,76,60,0.2); color: #e87070; }
+
+    /* ══════════════════════════════════════════
+       TOAST NOTIFICATIONS
+    ══════════════════════════════════════════ */
+    .toast-container {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
+      z-index: 9999;
+      display: flex; flex-direction: column; gap: 10px;
+      pointer-events: none; min-width: 280px; max-width: 400px;
+    }
+    .toast {
+      background: rgba(12,24,48,0.96);
+      border: 1px solid var(--navy-border);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      animation: toastIn 0.35s ease;
+      pointer-events: auto;
+    }
+    .toast.removing { animation: toastOut 0.3s ease forwards; }
+    .toast i { font-size: 1.1rem; flex-shrink: 0; }
+    .toast.success i { color: var(--success); }
+    .toast.info    i { color: var(--info); }
+    .toast.warn    i { color: var(--warn); }
+    .toast.error   i { color: var(--danger); }
+    .toast-msg { font-size: 0.9rem; color: var(--text-primary); }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes toastOut {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(12px); }
+    }
+
+    /* ══════════════════════════════════════════
+       UTILITY ANIMATIONS
+    ══════════════════════════════════════════ */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ══════════════════════════════════════════
+       RESULT GRADE COLORS
+    ══════════════════════════════════════════ */
+    .grade-excellent { color: var(--success); }
+    .grade-good      { color: #2ecc71; }
+    .grade-fair      { color: var(--warn); }
+    .grade-poor      { color: var(--danger); }
+
+    .result-excellent { background: rgba(46,204,113,0.06); border: 1px solid rgba(46,204,113,0.2); }
+    .result-good      { background: rgba(46,204,113,0.05); border: 1px solid rgba(46,204,113,0.15); }
+    .result-fair      { background: rgba(243,156,18,0.06); border: 1px solid rgba(243,156,18,0.2); }
+    .result-poor      { background: rgba(231,76,60,0.05); border: 1px solid rgba(231,76,60,0.18); }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    footer {
+      position: relative; z-index: 10;
+      text-align: center; padding: 28px 20px;
+      border-top: 1px solid var(--navy-border);
+      color: var(--text-muted); font-size: 0.82rem;
+    }
+    footer span { color: var(--gold-dim); }
+
+    /* ══════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .cases-grid { grid-template-columns: 1fr; }
+      .modal-body, .modal-header { padding: 20px; }
+      .controls { flex-direction: column; }
+      .result-gauge-wrap { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* Scroll reveal */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Typing cursor */
+    .typing-cursor::after {
+      content: '|'; color: var(--gold-main);
+      animation: blink 0.8s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ══════════════════════════════════════════
+       AI RESULT STYLES
+    ══════════════════════════════════════════ */
+    .ai-spinner {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 3px solid rgba(192,148,40,0.15);
+      border-top-color: var(--gold-main);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .ai-powered-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(66,133,244,0.1);
+      border: 1px solid rgba(66,133,244,0.25);
+      border-radius: 10px;
+      padding: 5px 12px;
+      font-size: 0.75rem; color: #7baaf7;
+      margin: 14px 0 16px;
+    }
+
+    .ai-feedback-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 520px) { .ai-feedback-grid { grid-template-columns: 1fr; } }
+
+    .ai-feedback-col { display: flex; flex-direction: column; gap: 7px; }
+
+    .ai-feedback-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 0.84rem; line-height: 1.55;
+      padding: 8px 10px; border-radius: 8px;
+    }
+    .ai-feedback-item i { flex-shrink: 0; margin-top: 2px; font-size: 0.82rem; }
+    .ai-strength {
+      background: rgba(46,204,113,0.08);
+      border: 1px solid rgba(46,204,113,0.18);
+      color: #7de8a8;
+    }
+    .ai-strength i { color: var(--success); }
+    .ai-improve {
+      background: rgba(243,156,18,0.07);
+      border: 1px solid rgba(243,156,18,0.2);
+      color: #f5c96a;
+    }
+    .ai-improve i { color: var(--warn); }
+
+    .ai-tip-box {
+      display: flex; align-items: flex-start; gap: 10px;
+      background: rgba(192,148,40,0.07);
+      border: 1px solid rgba(192,148,40,0.2);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-size: 0.87rem; color: var(--text-secondary); line-height: 1.65;
+      margin-top: 4px;
+    }
+    .ai-tip-box i { color: var(--gold-main); flex-shrink: 0; margin-top: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ── Background ── -->
+<div class="bg-layer">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+</div>
+
+<!-- ── Header ── -->
+<header>
+  <div class="header-badge">
+    <i class="fas fa-gavel"></i>
+    <span>منصة القانون الجنائي التعليمية</span>
+  </div>
+  <h1 class="header-logo" id="logoText"></h1>
+  <p class="header-sub">تحليل القضايا الجنائية · التدريب التفاعلي · التصحيح الذكي</p>
+  <div class="header-divider"></div>
+</header>
+
+<!-- ── Stats Bar ── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <i class="fas fa-folder-open"></i>
+    <span><span class="stat-num" id="totalCount">0</span> قضية</span>
+  </div>
+  <div class="stat-item">
+    <i class="fas fa-eye"></i>
+    <span><span class="stat-num" id="viewedCount">0</span> مُشاهَدة</span>
+  </div>
+  <div class="stat-item">
+    <i class="fas fa-pencil-alt"></i>
+    <span><span class="stat-num" id="solvedCount">0</span> مُحلَّلة</span>
+  </div>
+</div>
+
+<!-- ── Controls ── -->
+<div class="controls">
+  <div class="search-wrap">
+    <i class="fas fa-search"></i>
+    <input class="search-input" id="searchInput" type="text" placeholder="ابحث في القضايا..." />
+  </div>
+  <button class="filter-btn active" data-filter="all">
+    <i class="fas fa-list"></i> الكل
+  </button>
+  <button class="filter-btn" data-filter="viewed">
+    <i class="fas fa-check-circle"></i> المُشاهَدة
+  </button>
+  <button class="filter-btn" data-filter="solved">
+    <i class="fas fa-star"></i> المُحلَّلة
+  </button>
+</div>
+
+<!-- ── Grid ── -->
+<div class="grid-section">
+  <div class="cases-grid" id="casesGrid">
+    <!-- Skeleton Loaders -->
+    <div class="skeleton" id="skel1">
+      <div class="skel-line title"></div>
+      <div class="skel-line"></div>
+      <div class="skel-line"></div>
+      <div class="skel-line short"></div>
+    </div>
+    <div class="skeleton" id="skel2">
+      <div class="skel-line title"></div>
+      <div class="skel-line"></div>
+      <div class="skel-line"></div>
+      <div class="skel-line short"></div>
+    </div>
+    <div class="skeleton" id="skel3">
+      <div class="skel-line title"></div>
+      <div class="skel-line"></div>
+      <div class="skel-line"></div>
+      <div class="skel-line short"></div>
+    </div>
+  </div>
+  <div class="empty-state" id="emptyState">
+    <i class="fas fa-search"></i>
+    <h3>لا توجد نتائج</h3>
+    <p>لم يتم العثور على قضايا تطابق بحثك</p>
+  </div>
+</div>
+
+<!-- ── Modal ── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-badge"><i class="fas fa-balance-scale"></i> قضية جنائية</div>
+        <h2 class="modal-title" id="modalTitle">—</h2>
+      </div>
+      <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ── Toast Container ── -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ── Footer ── -->
+<footer>
+  <span>⚖ المنصة القانونية</span> — جميع القضايا تعليمية بحتة للأغراض الأكاديمية
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+const State = {
+  cases: [],
+  filtered: [],
+  currentFilter: 'all',
+  searchQuery: '',
+  viewed: new Set(JSON.parse(localStorage.getItem('lq_viewed') || '[]')),
+  solved: new Set(JSON.parse(localStorage.getItem('lq_solved') || '[]')),
+  userAnswers: JSON.parse(localStorage.getItem('lq_answers') || '{}'),
+  lastOpened: localStorage.getItem('lq_last') || null,
+};
+
+/* ══════════════════════════════════════════
+   INIT
+══════════════════════════════════════════ */
+async function init() {
+  typeLogoText();
+  await loadCases();
+  setupEvents();
+  setupScrollReveal();
+  updateStats();
+
+  // Reopen last viewed case
+  if (State.lastOpened) {
+    const c = State.cases.find(x => String(x.id) === State.lastOpened);
+    if (c) setTimeout(() => openModal(c, true), 800);
+  }
+}
+
+/* ── Typing logo ── */
+function typeLogoText() {
+  const target = document.getElementById('logoText');
+  const text = 'المنصة القانونية';
+  let i = 0;
+  target.classList.add('typing-cursor');
+  const iv = setInterval(() => {
+    target.textContent += text[i++];
+    if (i >= text.length) { clearInterval(iv); target.classList.remove('typing-cursor'); }
+  }, 80);
+}
+
+/* ══════════════════════════════════════════
+   DATA LOADING
+══════════════════════════════════════════ */
+async function loadCases() {
+  try {
+    const res = await fetch('Issues.json');
+    if (!res.ok) throw new Error('fetch failed');
+    State.cases = await res.json();
+  } catch (_) {
+    // Inline fallback so demo works without a server
+    State.cases = FALLBACK_CASES;
+    showToast('تم تحميل القضايا من البيانات المدمجة', 'info');
+  }
+  State.filtered = [...State.cases];
+  removeSkeleton();
+  renderCards(State.filtered);
+  updateStats();
+}
+
+function removeSkeleton() {
+  ['skel1','skel2','skel3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.remove();
+  });
+}
+
+/* ══════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════ */
+function renderCards(list) {
+  const grid = document.getElementById('casesGrid');
+  const empty = document.getElementById('emptyState');
+
+  // Clear non-skeleton
+  grid.querySelectorAll('.case-card').forEach(el => el.remove());
+
+  if (!list.length) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  list.forEach((c, idx) => {
+    const card = createCard(c, idx);
+    grid.appendChild(card);
+  });
+  setupScrollReveal();
+}
+
+function createCard(c, idx) {
+  const isViewed = State.viewed.has(c.id);
+  const isSolved = State.solved.has(c.id);
+
+  const card = document.createElement('div');
+  card.className = 'case-card reveal';
+  card.style.animationDelay = `${idx * 0.07}s`;
+  card.dataset.id = c.id;
+
+  const preview = c.question.length > 140 ? c.question.slice(0, 140) + '…' : c.question;
+
+  card.innerHTML = `
+    <div class="card-num">#${String(c.id).padStart(2,'0')}</div>
+    <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+    <h3 class="card-title">${c.title}</h3>
+    <p class="card-preview">${preview}</p>
+    <div class="card-actions">
+      <button class="btn-primary" onclick="openModal(State.cases.find(x=>x.id===${c.id}))">
+        <i class="fas fa-eye"></i> عرض القضية
+      </button>
+      ${isViewed ? `<div class="btn-icon" title="مُشاهَدة"><i class="fas fa-check" style="color:var(--success)"></i></div>` : ''}
+      ${isSolved ? `<div class="btn-icon" title="مُحلَّلة"><i class="fas fa-star" style="color:var(--gold-bright)"></i></div>` : ''}
+    </div>
+  `;
+  return card;
+}
+
+/* ══════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════ */
+function openModal(c, silent = false) {
+  if (!c) return;
+  const overlay = document.getElementById('modalOverlay');
+  document.getElementById('modalTitle').textContent = c.title;
+
+  // Mark viewed
+  State.viewed.add(c.id);
+  localStorage.setItem('lq_viewed', JSON.stringify([...State.viewed]));
+  localStorage.setItem('lq_last', String(c.id));
+  State.lastOpened = String(c.id);
+  updateStats();
+
+  // Saved user answer
+  const saved = State.userAnswers[c.id] || {};
+
+  document.getElementById('modalBody').innerHTML = buildModalBody(c, saved);
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  if (!silent) showToast(`تم فتح القضية: ${c.title}`, 'info');
+
+  // Re-render cards to update badges
+  renderCards(applyFilters());
+}
+
+function buildModalBody(c, saved) {
+  return `
+    <!-- Question -->
+    <div class="section-label"><i class="fas fa-question-circle"></i> نص القضية</div>
+    <div class="question-box" id="questionBox">${c.question}</div>
+
+    <!-- Show Answer Button -->
+    <button class="answer-toggle-btn" id="answerToggleBtn" onclick="toggleAnswer('${c.id}')">
+      <i class="fas fa-lock-open"></i>
+      <span>إظهار الإجابة النموذجية</span>
+    </button>
+
+    <!-- Answer Content -->
+    <div class="answer-content" id="answerContent">
+      <!-- Principle -->
+      <div class="answer-block principle">
+        <button class="copy-btn" onclick="copyText('${c.id}-principle')"><i class="fas fa-copy"></i> نسخ</button>
+        <div class="answer-block-label"><i class="fas fa-book-open"></i> المبدأ القانوني</div>
+        <div class="answer-block-text" id="${c.id}-principle">${c.principle}</div>
+      </div>
+      <!-- Application -->
+      <div class="answer-block application">
+        <button class="copy-btn" onclick="copyText('${c.id}-application')"><i class="fas fa-copy"></i> نسخ</button>
+        <div class="answer-block-label"><i class="fas fa-check-double"></i> التطبيق</div>
+        <div class="answer-block-text" id="${c.id}-application">${c.application}</div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="solve-divider"></div>
+
+    <!-- Self-Solve Trigger -->
+    <button class="solve-trigger-btn" id="solveTriggerBtn" onclick="toggleSolvePanel('${c.id}')">
+      <i class="fas fa-pen-fancy"></i>
+      جرّب تحل القضية بنفسك
+    </button>
+
+    <!-- Solve Panel -->
+    <div class="solve-panel" id="solvePanel">
+      <div class="solve-field">
+        <div class="solve-label"><i class="fas fa-book"></i> اكتب المبدأ القانوني</div>
+        <textarea class="solve-textarea" id="userPrinciple" placeholder="اكتب فهمك للمبدأ القانوني المثار في هذه القضية...">${saved.principle || ''}</textarea>
+      </div>
+      <div class="solve-field">
+        <div class="solve-label"><i class="fas fa-gavel"></i> اكتب التطبيق على الحالة</div>
+        <textarea class="solve-textarea" id="userApplication" placeholder="طبّق المبدأ على وقائع هذه القضية وانتهِ إلى نتيجة...">${saved.application || ''}</textarea>
+      </div>
+      <button class="check-btn" onclick="checkAnswer('${c.id}', \`${escapeTemplate(c.principle)}\`, \`${escapeTemplate(c.application)}\`)">
+        <i class="fas fa-magic"></i> تصحيح الإجابة ذكياً
+      </button>
+      <div class="result-box" id="resultBox"></div>
+    </div>
+  `;
+}
+
+function escapeTemplate(str) {
+  return str.replace(/`/g, '\\`').replace(/\$/g, '\\$');
+}
+
+function closeModal() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  // أضف السطور التالية:
+  localStorage.removeItem('lq_last');
+  State.lastOpened = null;
+}
+
+function toggleAnswer(caseId) {
+  const content = document.getElementById('answerContent');
+  const btn     = document.getElementById('answerToggleBtn');
+  const isVisible = content.classList.toggle('visible');
+  
+  // === أضف الجزء ده ===
+  const solvePanel = document.getElementById('solvePanel');
+  const solveBtn   = document.getElementById('solveTriggerBtn');
+  if (isVisible && solvePanel && solvePanel.classList.contains('open')) {
+    // نخفي مساحة الحل لأن الإجابة ظهرت
+    solvePanel.classList.remove('open');
+    if (solveBtn) solveBtn.classList.remove('active');
+    showToast('تم إخفاء مساحة الحل لإظهار الإجابة النموذجية', 'info');
+  }
+  // ===================
+
+  if (isVisible) {
+    btn.classList.add('shown');
+    btn.innerHTML = '<i class="fas fa-eye-slash"></i><span>إخفاء الإجابة النموذجية</span>';
+    showToast('تم كشف الإجابة النموذجية', 'success');
+  } else {
+    btn.classList.remove('shown');
+    btn.innerHTML = '<i class="fas fa-lock-open"></i><span>إظهار الإجابة النموذجية</span>';
+  }
+}
+
+function toggleSolvePanel(caseId) {
+  const panel      = document.getElementById('solvePanel');
+  const btn        = document.getElementById('solveTriggerBtn');
+  const ansContent = document.getElementById('answerContent');
+  const ansBtn     = document.getElementById('answerToggleBtn');
+
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+
+  if (panel.classList.contains('open')) {
+    // إخفاء الإجابة النموذجية تلقائياً عند فتح مساحة الحل
+    if (ansContent && ansContent.classList.contains('visible')) {
+      ansContent.classList.remove('visible');
+      ansBtn.classList.remove('shown');
+      ansBtn.innerHTML = '<i class="fas fa-lock-open"></i><span>إظهار الإجابة النموذجية</span>';
+      showToast('تم إخفاء الإجابة — حاول الحل بنفسك أولاً 💪', 'warn');
+    } else {
+      showToast('مساحة الحل مفتوحة — أجب ثم اضغط تصحيح', 'info');
+    }
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+}
+
+/* ══════════════════════════════════════════
+   COPY
+══════════════════════════════════════════ */
+function copyText(elId) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent.trim()).then(() => {
+    const btn = el.previousElementSibling;
+    if (btn) { btn.classList.add('copied'); btn.innerHTML = '<i class="fas fa-check"></i> تم'; }
+    showToast('تم نسخ النص بنجاح', 'success');
+    setTimeout(() => { if (btn) { btn.classList.remove('copied'); btn.innerHTML = '<i class="fas fa-copy"></i> نسخ'; } }, 2000);
+  });
+}
+
+/* ══════════════════════════════════════════
+   GEMINI AI — SMART ANSWER CHECKING
+══════════════════════════════════════════ */
+
+const GEMINI_API_KEY = 'AIzaSyDZM0kdA09LwWVSAwu1_77TGHCmNr2DoP0';
+  
+  
+//const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`;
+
+async function checkAnswer(caseId, refPrinciple, refApplication) {
+
+  const uPrinciple =
+    document.getElementById('userPrinciple')?.value.trim() || '';
+
+  const uApplication =
+    document.getElementById('userApplication')?.value.trim() || '';
+
+  if (!uPrinciple || !uApplication) {
+    showToast('يرجى كتابة إجابتك أولاً', 'warn');
+    return;
+  }
+
+  // حفظ الإجابة
+  State.userAnswers[caseId] = {
+    principle: uPrinciple,
+    application: uApplication
+  };
+
+  localStorage.setItem(
+    'lq_answers',
+    JSON.stringify(State.userAnswers)
+  );
+
+  showLoadingResult();
+
+  const prompt = `
+أنت مصحح قانوني متخصص في القانون الجنائي المصري.
+
+قيم إجابة الطالب مقارنة بالإجابة النموذجية.
+
+- ركّز على الفهم وليس التطابق الحرفي
+- تجاهل الأخطاء الإملائية البسيطة
+
+الإجابة النموذجية:
+المبدأ:
+${refPrinciple}
+
+التطبيق:
+${refApplication}
+
+إجابة الطالب:
+المبدأ:
+${uPrinciple || '(لم يُجب)'}
+
+التطبيق:
+${uApplication || '(لم يُجب)'}
+
+أعد JSON فقط بدون أي شرح أو markdown:
+
+{
+  "score": 85,
+  "principle_score": 80,
+  "application_score": 90,
+  "grade": "جيد جداً",
+  "summary": "....",
+  "strengths": ["..."],
+  "improvements": ["..."],
+  "legal_tip": "..."
+}
+`;
+
+  try {
+
+    const res = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
+              {
+                text: prompt
+              }
+            ]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.2,
+          maxOutputTokens: 500
+        }
+      })
+    });
+
+    // لو في خطأ HTTP
+    if (!res.ok) {
+      let errorText = '';
+
+      try {
+        errorText = await res.text();
+      } catch {}
+
+      console.error('HTTP ERROR:', res.status, errorText);
+
+      if (res.status === 429) {
+        throw new Error('تم تجاوز الحد المسموح من الطلبات');
+      }
+
+      if (res.status === 401) {
+        throw new Error('API Key غير صالح');
+      }
+
+      if (res.status === 403) {
+        throw new Error('تم رفض الوصول إلى API');
+      }
+
+      throw new Error(`HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    console.log('FULL RESPONSE:', data);
+
+    const candidate = data?.candidates?.[0];
+
+    if (!candidate) {
+      console.log(data);
+      throw new Error('لم يتم استلام رد من Gemini');
+    }
+
+    const rawText =
+      candidate?.content?.parts?.[0]?.text?.trim() || '';
+
+    console.log('RAW AI TEXT:', rawText);
+
+    if (!rawText) {
+      throw new Error('رد فارغ من الذكاء الاصطناعي');
+    }
+
+    // تنظيف الرد
+    let cleaned = rawText
+      .replace(/```json/gi, '')
+      .replace(/```/g, '')
+      .trim();
+
+    // استخراج JSON
+    const start = cleaned.indexOf('{');
+    const end = cleaned.lastIndexOf('}');
+
+    if (start === -1 || end === -1) {
+      console.log('CLEANED:', cleaned);
+      throw new Error('لم يتم العثور على JSON في الرد');
+    }
+
+    const jsonString = cleaned.substring(start, end + 1);
+
+    console.log('EXTRACTED JSON:', jsonString);
+
+    let result;
+
+    try {
+      result = JSON.parse(jsonString);
+    } catch (e) {
+      console.error('JSON PARSE ERROR:', e);
+      console.log(jsonString);
+      throw new Error('فشل قراءة JSON من الرد');
+    }
+
+    // تأمين القيم
+    const score = Math.min(100, Math.max(0, Number(result.score) || 0));
+
+    result.principle_score =
+      Math.min(100, Math.max(0, Number(result.principle_score) || 0));
+
+    result.application_score =
+      Math.min(100, Math.max(0, Number(result.application_score) || 0));
+
+    if (!Array.isArray(result.strengths)) result.strengths = [];
+    if (!Array.isArray(result.improvements)) result.improvements = [];
+
+    result.grade = result.grade || '';
+    result.summary = result.summary || '';
+    result.legal_tip = result.legal_tip || '';
+
+    // حفظ الحالة
+    State.solved.add(Number(caseId));
+
+    localStorage.setItem(
+      'lq_solved',
+      JSON.stringify([...State.solved])
+    );
+
+    updateStats();
+
+    // عرض النتيجة
+    renderAIResult(score, result);
+
+    revealAnswerAfterCheck();
+    renderCards(applyFilters());
+
+    showToast('تم التصحيح بنجاح ✨', 'success');
+
+  } catch (err) {
+
+    console.error('Gemini error:', err);
+
+    hideLoadingResult();
+
+    showToast(err.message || 'حدث خطأ', 'error');
+  }
+}
+
+// إظهار الإجابة النموذجية تلقائياً بعد التصحيح
+function revealAnswerAfterCheck() {
+  const ansContent = document.getElementById('answerContent');
+  const ansBtn     = document.getElementById('answerToggleBtn');
+  if (ansContent && !ansContent.classList.contains('visible')) {
+    ansContent.classList.add('visible');
+    if (ansBtn) {
+      ansBtn.classList.add('shown');
+      ansBtn.innerHTML = '<i class="fas fa-eye-slash"></i><span>إخفاء الإجابة النموذجية</span>';
+    }
+    showToast('تم كشف الإجابة النموذجية للمقارنة ✨', 'success');
+  }
+}
+
+function showLoadingResult() {
+  const box = document.getElementById('resultBox');
+  box.className = 'result-box show result-fair';
+  box.innerHTML = `
+    <div style="display:flex;align-items:center;gap:16px;padding:8px 0">
+      <div class="ai-spinner"></div>
+      <div>
+        <div style="color:var(--gold-bright);font-weight:700;margin-bottom:4px">جاري التصحيح بالذكاء الاصطناعي...</div>
+        <div style="color:var(--text-muted);font-size:0.83rem">Gemini يقرأ إجابتك ويحلل فهمك القانوني</div>
+      </div>
+    </div>
+  `;
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideLoadingResult() {
+  const box = document.getElementById('resultBox');
+  box.className = 'result-box';
+  box.innerHTML = '';
+}
+
+function renderAIResult(pct, result) {
+  const box = document.getElementById('resultBox');
+
+  const gradeMap = {
+    'ممتاز':        { cls: 'grade-excellent', resultCls: 'result-excellent', emoji: '🏆', stroke: '#2ecc71' },
+    'جيد جداً':     { cls: 'grade-good',      resultCls: 'result-good',      emoji: '✅', stroke: '#58d68d' },
+    'جيد':          { cls: 'grade-fair',       resultCls: 'result-fair',      emoji: '📝', stroke: '#f39c12' },
+    'يحتاج مراجعة': { cls: 'grade-poor',       resultCls: 'result-poor',      emoji: '📚', stroke: '#e74c3c' },
+  };
+  const g = gradeMap[result.grade] || gradeMap['يحتاج مراجعة'];
+  const circumference = 226;
+
+  const strengthsHTML = (result.strengths || []).map(s =>
+    `<div class="ai-feedback-item ai-strength"><i class="fas fa-check-circle"></i> ${s}</div>`
+  ).join('');
+
+  const improvementsHTML = (result.improvements || []).map(s =>
+    `<div class="ai-feedback-item ai-improve"><i class="fas fa-arrow-up-right-dots"></i> ${s}</div>`
+  ).join('');
+
+  box.className = `result-box show ${g.resultCls}`;
+  box.innerHTML = `
+    <!-- Gauge + Grade -->
+    <div class="result-gauge-wrap">
+      <div class="gauge-ring">
+        <svg viewBox="0 0 90 90" width="90" height="90">
+          <circle class="gauge-bg" cx="45" cy="45" r="36"/>
+          <circle class="gauge-fill" cx="45" cy="45" r="36"
+            id="gaugeFill" stroke="${g.stroke}"
+            style="stroke-dashoffset:${circumference}"/>
+        </svg>
+        <div class="gauge-pct" id="gaugePct">0%</div>
+      </div>
+      <div class="result-text-wrap">
+        <div class="result-grade ${g.cls}">${g.emoji} ${result.grade}</div>
+        <div class="result-detail">${result.summary || ''}</div>
+        <div style="margin-top:10px;font-size:0.8rem;color:var(--text-muted)">
+          المبدأ: <strong style="color:var(--gold-main)">${result.principle_score ?? '—'}%</strong>
+          &nbsp;|&nbsp;
+          التطبيق: <strong style="color:var(--gold-main)">${result.application_score ?? '—'}%</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Badge -->
+    <div class="ai-powered-badge"><i class="fas fa-robot"></i> مُصحَّح بواسطة Gemini AI</div>
+
+    <!-- Strengths & Improvements -->
+    ${strengthsHTML || improvementsHTML ? `
+    <div class="ai-feedback-grid">
+      ${strengthsHTML    ? `<div class="ai-feedback-col">${strengthsHTML}</div>`    : ''}
+      ${improvementsHTML ? `<div class="ai-feedback-col">${improvementsHTML}</div>` : ''}
+    </div>` : ''}
+
+    <!-- Legal Tip -->
+    ${result.legal_tip ? `
+    <div class="ai-tip-box">
+      <i class="fas fa-lightbulb"></i>
+      <span>${result.legal_tip}</span>
+    </div>` : ''}
+  `;
+
+  // Animate gauge
+  requestAnimationFrame(() => {
+    const fill  = document.getElementById('gaugeFill');
+    const pctEl = document.getElementById('gaugePct');
+    if (fill) {
+      setTimeout(() => {
+        fill.style.strokeDashoffset = String(circumference - (pct / 100) * circumference);
+        let cur = 0;
+        const iv = setInterval(() => {
+          cur = Math.min(cur + 2, pct);
+          if (pctEl) pctEl.textContent = cur + '%';
+          if (cur >= pct) clearInterval(iv);
+        }, 18);
+      }, 120);
+    }
+  });
+
+  box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  showToast(`تقييم AI: ${result.grade} (${pct}%)`, pct >= 55 ? 'success' : 'warn');
+}
+
+/* ══════════════════════════════════════════
+   SEARCH & FILTER
+══════════════════════════════════════════ */
+function applyFilters() {
+  let list = [...State.cases];
+
+  if (State.searchQuery) {
+    const q = State.searchQuery.toLowerCase();
+    list = list.filter(c =>
+      c.title.includes(q) ||
+      c.question.includes(q) ||
+      c.principle.includes(q) ||
+      c.application.includes(q)
+    );
+  }
+
+  if (State.currentFilter === 'viewed') {
+    list = list.filter(c => State.viewed.has(c.id));
+  } else if (State.currentFilter === 'solved') {
+    list = list.filter(c => State.solved.has(c.id));
+  }
+
+  return list;
+}
+
+/* ══════════════════════════════════════════
+   EVENTS
+══════════════════════════════════════════ */
+function setupEvents() {
+  // Close modal
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeModal();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Search
+  const searchInput = document.getElementById('searchInput');
+  let searchTimeout;
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      State.searchQuery = searchInput.value.trim();
+      renderCards(applyFilters());
+    }, 280);
+  });
+
+  // Filters
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      State.currentFilter = btn.dataset.filter;
+      renderCards(applyFilters());
+    });
+  });
+}
+
+/* ══════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════ */
+function setupScrollReveal() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+/* ══════════════════════════════════════════
+   STATS
+══════════════════════════════════════════ */
+function updateStats() {
+  document.getElementById('totalCount').textContent  = State.cases.length;
+  document.getElementById('viewedCount').textContent = State.viewed.size;
+  document.getElementById('solvedCount').textContent = State.solved.size;
+}
+
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
+function showToast(msg, type = 'info') {
+  const icons = { success: 'fa-check-circle', info: 'fa-info-circle', warn: 'fa-exclamation-triangle', error: 'fa-times-circle' };
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerHTML = `<i class="fas ${icons[type] || icons.info}"></i><span class="toast-msg">${msg}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.add('removing');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+/* ══════════════════════════════════════════
+   FALLBACK DATA (if Issues.json unavailable)
+══════════════════════════════════════════ */
+const FALLBACK_CASES = [
+  {
+    "id": 1,
+    "title": "الشروع في السرقة",
+    "question": "استطاع (أ) بمساعدة (ب) تسلق حديقة منزل وسرقة بعض معدات العناية بالحدائق، وأثناء خروجهما من باب الحديقة شعر بهما صاحب المنزل، فركض خلفهما يطاردهما مستنجداً بالمارة حتى تجمهروا حول السارقين وأمسكوا بهما لحين وصول الشرطة، فهل يسأل الجناة عن جريمة سرقة كاملة؟",
+    "principle": "تثير هذه القضية فكرة الشروع، وتتلخص عناصر الشروع في أركان جريمة الشروع: الركن المادي ويتكون من عنصرين أساسيين وهما البدء في التنفيذ وعدم إتمام التنفيذ لسبب خارج عن إرادة الجاني (الخيبة أو الوقف). والركن المعنوي وهو القصد الجنائي، أي اتجاه نية الجاني بوضوح إلى تحقيق النتيجة الإجرامية، وفي حالتنا هنا الاستيلاء على المال. ومعيار البدء في التنفيذ وفقاً لما أخذت به محكمة النقض هو المذهب الشخصي، وفكرته أن البدء في التنفيذ يعتبر الفعل شروعاً إذا كان يؤدي حالاً إلى ارتكاب الجريمة أو هو كل فعل يقطع بتوافر نية الجاني النهائية لارتكاب الجريمة.",
+    "application": "وفقاً للمبدأ وتطبيقاً على الحالة الحالية نجد أن (أ) و(ب) لا تتحقق فيهما جريمة السرقة الكاملة، بل تعد جريمة شروع في السرقة، لأن جريمة السرقة قانوناً لا تكتمل إلا بنقل حيازة المال المسروق إلى الجاني واستقرار الحيازة لديه في مأمن. أما في هذه القضية فلم تستقر الحيازة بسبب مطاردة صاحب المنزل وتجمهر المارة حول السارقين. وتعد أيضاً شروعاً لأن الجناة ارتكبوا أفعالاً مادية مثل التسور والاستيلاء ومحاولة الخروج، وهذه الأفعال تؤدي مباشرة إلى النتيجة الإجرامية وتقطع بوجود نية السرقة لديهما، ولكن النتيجة النهائية وهي استقرار الحيازة لم تتحقق لسبب خارج عن إرادتهما وهو يقظة صاحب المنزل وتدخل المارة."
+  },
+  {
+    "id": 2,
+    "title": "القتل العمد والدفاع الشرعي",
+    "question": "أقدم (أ) على مهاجمة (ب) بسكين في الطريق العام بقصد قتله، فتمكن (ب) من انتزاع السكين من يد (أ) وطعنه بها مما أفضى إلى وفاة (أ)، فهل يسأل (ب) عن جريمة القتل العمد؟",
+    "principle": "تثير هذه القضية حق الدفاع الشرعي عن النفس. وشروط الدفاع الشرعي هي: أولاً وجود خطر حقيقي أو وشيك الوقوع يهدد النفس أو المال. ثانياً عدم وجود وسيلة أخرى للدفع غير استخدام القوة. ثالثاً التناسب بين فعل الدفاع والخطر المهدَّد به. ورابعاً ألا يكون المدافع هو البادئ بالاعتداء.",
+    "application": "وفقاً للمبدأ وتطبيقاً على الحالة نجد أن (ب) كان في حالة دفاع شرعي عن النفس، إذ توافرت الشروط جميعها: فالخطر كان حقيقياً ووشيك الوقوع بدليل مهاجمة (أ) له بسكين بقصد القتل. ولم تكن أمام (ب) وسيلة أخرى سوى استخدام نفس الأداة بعد انتزاعها. وكان فعل الدفاع متناسباً مع الخطر المهدَّد به وهو القتل. ولم يكن (ب) هو البادئ بالاعتداء بل كان ضحية له. ومن ثم لا تقوم المسؤولية الجنائية على (ب) لانتفاء ركن الجريمة بسبب قيام حالة الدفاع الشرعي."
+  },
+  {
+    "id": 3,
+    "title": "جريمة الإتلاف العمد",
+    "question": "أضرم (أ) النار عمداً في مخزن يملكه (ب) مما أدى إلى إتلاف محتوياته بالكامل، وكان (ج) نائماً داخل المخزن دون علم (أ) فتوفي جراء الحريق، فما هي الجرائم المنسوبة إلى (أ)؟",
+    "principle": "تثير هذه القضية فكرة تعدد الجرائم والقصد الجنائي. فجريمة الإتلاف العمد تستلزم القصد الجنائي المتمثل في العلم والإرادة بإتلاف مال الغير. أما فيما يخص وفاة (ج) فيثور التساؤل حول القصد الجنائي لدى (أ) تجاهه، ونظرية القصد الاحتمالي أو غير المباشر تقضي بأن الجاني يُسأل عن النتائج التي كان يتوقعها أو كان يجب عليه توقعها وقبلها.",
+    "application": "وفقاً للمبدأ وتطبيقاً على الحالة نجد أن (أ) يسأل عن جريمتين مستقلتين: الأولى جريمة إتلاف عمد لمحتويات المخزن وتوافر القصد الجنائي لديه بالعلم والإرادة. والثانية فيما يخص وفاة (ج) فيسأل (أ) عن جريمة القتل الخطأ لا القتل العمد، لأنه لم يكن يعلم بوجود (ج) داخل المخزن، غير أنه كان يجب عليه التحقق من خلو المكان قبل إضرام النار مما يشكل إهمالاً جسيماً أفضى إلى الوفاة."
+  },
+  {
+    "id": 4,
+    "title": "الاشتراك في الجريمة",
+    "question": "اتفق (أ) و(ب) على سرقة منزل (ج)، وقام (أ) بتحديد موعد تغيب (ج) عن منزله وأخبر (ب)، فذهب (ب) وحده ونفذ السرقة دون أن يكون (أ) حاضراً، فهل يسأل (أ) عن جريمة السرقة؟",
+    "principle": "تثير هذه القضية فكرة الاشتراك في الجريمة بالتحريض أو الاتفاق. وصور الاشتراك في القانون الجنائي ثلاث: التحريض وهو دفع شخص آخر إلى ارتكاب الجريمة بإثارة عزمه عليها. والاتفاق وهو تقابل إرادة شخصين أو أكثر على ارتكاب جريمة معينة. والمساعدة وهي تقديم عون مادي أو معنوي يُمكّن الفاعل الأصلي من ارتكاب الجريمة.",
+    "application": "وفقاً للمبدأ وتطبيقاً على الحالة نجد أن (أ) يسأل عن جريمة السرقة بوصفه شريكاً لا فاعلاً أصلياً، وذلك لتوافر صورتين من صور الاشتراك في حقه: الأولى الاتفاق المسبق مع (ب) على ارتكاب جريمة السرقة. والثانية المساعدة بتقديم معلومات عن موعد غياب المجني عليه مما أعان (ب) على تنفيذ الجريمة. ولا يؤثر في مسؤوليته أنه لم يكن حاضراً وقت التنفيذ."
+  },
+  {
+    "id": 5,
+    "title": "جريمة الاحتيال",
+    "question": "ادّعى (أ) زوراً أنه مهندس معماري معتمد وتقدم لإبرام عقد مع (ب) لتصميم مبنى تجاري بمبلغ كبير، وبعد استلامه الدفعة الأولى اختفى دون تنفيذ أي عمل، فهل تقوم جريمة الاحتيال؟",
+    "principle": "تثير هذه القضية جريمة الاحتيال التي تقوم على عدة أركان: الركن المادي ويشمل استخدام طرق احتيالية كالتدليس والكذب وانتحال صفة كاذبة. والنتيجة الإجرامية وهي الاستيلاء على مال الغير أو تسليمه. والركن المعنوي وهو القصد الجنائي الخاص المتمثل في نية الاستيلاء على المال وإحداث الضرر.",
+    "application": "وفقاً للمبدأ وتطبيقاً على الحالة نجد أن جريمة الاحتيال قائمة بحق (أ) لتوافر جميع أركانها: فقد استخدم طرقاً احتيالية تمثلت في انتحال صفة مهندس معماري معتمد زوراً وهو ما يُعد غشاً وتدليساً. وتحققت النتيجة الإجرامية بتسليم (ب) الدفعة الأولى من المال بناءً على هذا الغش. كما توافر القصد الجنائي الخاص بدليل اختفائه بعد استلام المال دون تنفيذ أي التزام."
+  },
+  {
+    "id": 6,
+    "title": "الإكراه المعنوي وأثره على المسؤولية",
+    "question": "هدد (أ) بقتل أبناء (ب) إن لم يقم بتسليمه مفاتيح المنشأة التي يعمل بها حارساً، ففعل (ب) ذلك خوفاً على أبنائه مما أتاح لـ(أ) سرقة محتويات المنشأة، فهل تقوم المسؤولية الجنائية على (ب)؟",
+    "principle": "تثير هذه القضية موانع المسؤولية الجنائية وتحديداً الإكراه المعنوي. والإكراه المعنوي هو تهديد شخص بإلحاق ضرر جسيم به أو بذويه مما يُعدم حرية الاختيار لديه. وشروط الإكراه المعنوي المُعفي من المسؤولية هي: أن يكون الخطر جسيماً وحالاً. وألا يكون في وسع الشخص دفعه بوسيلة أخرى. وألا يكون قد تسبب هو في الوقوع في هذه الحالة.",
+    "application": "وفقاً للمبدأ وتطبيقاً على الحالة نجد أن (ب) يُعفى من المسؤولية الجنائية لتوافر حالة الإكراه المعنوي، إذ كان الخطر المهدَّد به جسيماً يتمثل في تهديد حياة أبنائه وهو خطر جسيم وحال. ولم تكن أمامه وسيلة أخرى في تلك اللحظة لدفع الخطر. وبذلك انعدمت إرادته الحرة وانتفى الركن المعنوي للجريمة في حقه."
+  }
+];
+
+/* ══════════════════════════════════════════
+   BOOT
+══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
